@@ -1,8 +1,8 @@
-package coordinate;
+package coordinate.fuel;
 
-import coordinate.car.Avante;
-import coordinate.car.K5;
-import coordinate.car.Sonata;
+import coordinate.fuel.car.Avante;
+import coordinate.fuel.car.K5;
+import coordinate.fuel.car.Sonata;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

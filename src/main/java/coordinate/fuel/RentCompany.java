@@ -1,6 +1,6 @@
-package coordinate;
+package coordinate.fuel;
 
-import coordinate.car.Car;
+import coordinate.fuel.car.Car;
 
 import java.util.ArrayList;
 import java.util.List;

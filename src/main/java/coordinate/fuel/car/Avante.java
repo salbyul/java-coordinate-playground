@@ -1,9 +1,9 @@
-package coordinate.car;
+package coordinate.fuel.car;
 
-public class Sonata extends Car {
+public class Avante extends Car {
 
-    private static final int MILEAGE = 10;
-    private static final String CAR_NAME = "Sonata";
+    private static final String CAR_NAME = "Avante";
+    private static final int MILEAGE = 15;
 
     @Override
     double getMileage() {
@@ -20,7 +20,7 @@ public class Sonata extends Car {
         return CAR_NAME;
     }
 
-    public Sonata(final int sonataFuel) {
+    public Avante(final int sonataFuel) {
         super(sonataFuel);
     }
 }

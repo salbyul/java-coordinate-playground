@@ -1,4 +1,4 @@
-package coordinate.car;
+package coordinate.fuel.car;
 
 public abstract class Car {
 

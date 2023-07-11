@@ -1,4 +1,4 @@
-package coordinate.car;
+package coordinate.fuel.car;
 
 public class K5 extends Car {
 
