@@ -10,56 +10,64 @@ import java.util.regex.Pattern;
 
 public class PositionParser {
 
+    private static final String SEPARATED_REGEX = "(\\([^,]*,[^,)]*\\))";
+    private static final Matcher matcher = Pattern.compile(SEPARATED_REGEX).matcher("");
+
     protected PositionParser() {
     }
 
-    public Positions parsePosition(final String userInput) {
-        List<String> separatedInputs = separateInput(userInput);
+    public Positions parsePositions(final String userInput) {
+        initMatcher(userInput);
         Positions positions = new Positions();
-        if (separatedInputs.isEmpty()) {
-            throw new IllegalArgumentException("(10,20)-(0,1)의 형식으로 입력해야 합니다.");
-        }
+
+        List<String> separatedInputs = separateInput(userInput);
+        validateSeparatedSize(separatedInputs);
         for (String separatedInput : separatedInputs) {
             String removed = removeBracket(separatedInput);
             int[] parsedInput = parseInt(removed);
-            Position position = new Position(parsedInput[0], parsedInput[1]);
-            positions.addPosition(position);
+            positions.addPosition(new Position(parsedInput[0], parsedInput[1]));
         }
         return positions;
     }
 
-    private int[] parseInt(final String removed) {
-        String[] split = removed.split(",");
-        int[] result = new int[2];
-        try {
-            result[0] = Integer.parseInt(split[0]);
-            result[1] = Integer.parseInt(split[1]);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("좌표로 숫자를 입력해야 합니다.");
+    private void initMatcher(final String userInput) {
+        matcher.reset(userInput);
+    }
+
+    private List<String> separateInput(String userInput) {
+        List<String> result = new ArrayList<>();
+        while (matcher.find()) {
+            String group = matcher.group();
+            result.add(group);
+            if (userInput.length() < group.length() + 1) {
+                break;
+            }
+            userInput = userInput.substring(userInput.indexOf(group) + group.length());
+            matcher.reset(userInput);
         }
         return result;
+    }
+
+    private void validateSeparatedSize(final List<String> separatedInputs) {
+        if (separatedInputs.isEmpty()) {
+            throw new IllegalArgumentException("(10,20)-(0,1)의 형식으로 입력해야 합니다.");
+        }
     }
 
     private String removeBracket(final String separatedInput) {
         return separatedInput.substring(1).substring(0, separatedInput.length() - 2);
     }
 
-    private List<String> separateInput(final String userInput) {
-        List<String> result = new ArrayList<>();
-        String regex = "(\\([^,]*,[^,)]*\\))";
-        Pattern compile = Pattern.compile(regex);
-        Matcher matcher = compile.matcher(userInput);
-        String input = userInput;
-
-        while (matcher.find()) {
-            String group = matcher.group();
-            result.add(group);
-            if (input.length() < group.length() + 1) {
-                break;
-            }
-            input = input.substring(input.indexOf(group) + group.length());
-            matcher = compile.matcher(input);
+    private int[] parseInt(final String removed) {
+        try {
+            return translateToIntArray(removed);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("좌표로 숫자를 입력해야 합니다.");
         }
-        return result;
+    }
+
+    private int[] translateToIntArray(final String removed) {
+        String[] split = removed.split(",");
+        return new int[]{Integer.parseInt(split[0]), Integer.parseInt(split[1])};
     }
 }

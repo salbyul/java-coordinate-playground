@@ -3,8 +3,11 @@ package coordinate.fuel.car;
 public abstract class Car {
 
     double distance;
+
     abstract double getMileage();
+
     abstract double getTripDistance();
+
     public abstract String getName();
 
     public double getChargeQuantity() {

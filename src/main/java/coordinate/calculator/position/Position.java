@@ -2,8 +2,6 @@ package coordinate.calculator.position;
 
 import coordinate.calculator.Positions;
 
-import java.util.List;
-
 public class Position {
 
     private final X x;
@@ -16,7 +14,7 @@ public class Position {
     }
 
     public static Positions parsePosition(final String userInput) {
-        return parser.parsePosition(userInput);
+        return parser.parsePositions(userInput);
     }
 
     public int getX() {
