@@ -14,4 +14,12 @@ public class Position {
     public static Position parsePosition(final String userInput) {
         return parser.parsePosition(userInput);
     }
+
+    public int getX() {
+        return x.value();
+    }
+
+    public int getY() {
+        return y.value();
+    }
 }

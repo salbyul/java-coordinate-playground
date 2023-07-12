@@ -10,4 +10,8 @@ public class Y {
         }
         this.y = y;
     }
+
+    public int value() {
+        return this.y;
+    }
 }
