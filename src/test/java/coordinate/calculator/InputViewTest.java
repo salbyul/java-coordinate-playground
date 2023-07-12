@@ -3,6 +3,7 @@ package coordinate.calculator;
 import coordinate.calculator.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -91,6 +92,18 @@ public class InputViewTest {
         InputView inputView = new InputView();
         inputView.getInputPositions();
         assertThat(outputStream.toString()).isEqualTo("-");
+    }
+
+    @ParameterizedTest
+    @DisplayName("유저가 입력한 좌표가 Position 객체로 잘 나오는지")
+    @ValueSource(strings = {"(0,8)"})
+    void getPositionByInput(String input) {
+        setSystemIn(input);
+        InputView inputView = new InputView();
+        String userInput = inputView.getInputPosition();
+        Position position = Position.parsePosition(userInput);
+        assertThat(position.getX()).isEqualTo(0);
+        assertThat(position.getY()).isEqualTo(8);
     }
 
     InputStream generateInputStream(String input) {
