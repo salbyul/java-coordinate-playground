@@ -10,14 +10,8 @@ public class InputView {
         this.scanner = new Scanner(System.in);
     }
 
-    public String[] getInputPositions() {
-        String firstInput = getInputPosition();
-        System.out.print("-");
-        String secondInput = getInputPosition();
-        return new String[]{firstInput, secondInput};
-    }
-
     public String getInputPosition() {
+        System.out.println("좌표를 입력하세요.");
         return scanner.next();
     }
 }

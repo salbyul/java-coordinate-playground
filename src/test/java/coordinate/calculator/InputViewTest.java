@@ -1,10 +1,9 @@
 package coordinate.calculator;
 
 import coordinate.calculator.position.Position;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.*;
@@ -14,20 +13,11 @@ import static org.assertj.core.api.Assertions.*;
 
 public class InputViewTest {
 
-    private OutputStream outputStream;
-
-    @BeforeEach
-    void setUp() {
-        outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-    }
-
     @ParameterizedTest
     @DisplayName("유저가 입력한 좌표 확인")
     @ValueSource(strings = {"(10,10)", "(0,8)"})
     void getInputPosition(String input) {
         setSystemIn(input);
-
         InputView inputView = new InputView();
         String userInput = inputView.getInputPosition();
         assertThat(userInput).isEqualTo(input);
@@ -42,7 +32,7 @@ public class InputViewTest {
         String userInput = inputView.getInputPosition();
         assertThatThrownBy(() -> Position.parsePosition(userInput))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("괄호안에 좌표를 입력해야 합니다.");
+                .hasMessage("(10,20)-(0,1)의 형식으로 입력해야 합니다.");
     }
 
     @ParameterizedTest
@@ -66,12 +56,9 @@ public class InputViewTest {
         String userInput = inputView.getInputPosition();
         assertThatThrownBy(() -> Position.parsePosition(userInput))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("x, y좌표 모두 입력해야 합니다.");
+                .hasMessage("(10,20)-(0,1)의 형식으로 입력해야 합니다.");
     }
 
-    private void setSystemIn(final String expectedInput) {
-        System.setIn(generateInputStream(expectedInput));
-    }
 
     @ParameterizedTest
     @DisplayName("0이상 24이하의 좌표를 입력했는지")
@@ -84,26 +71,20 @@ public class InputViewTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("숫자는 24이하의 자연수만 가능합니다.");
     }
-    @ParameterizedTest
-    @DisplayName("좌표를 입력했을 시 '-' 출력")
-    @ValueSource(strings = {"(10,10)\n(20,14)", "(0,8)\n(2,4)"})
-    void printHyphen(String input) {
-        setSystemIn(input);
-        InputView inputView = new InputView();
-        inputView.getInputPositions();
-        assertThat(outputStream.toString()).isEqualTo("-");
-    }
 
     @ParameterizedTest
-    @DisplayName("유저가 입력한 좌표가 Position 객체로 잘 나오는지")
-    @ValueSource(strings = {"(0,8)"})
-    void getPositionByInput(String input) {
+    @DisplayName("한개 이상의 좌표를 입력받을 시")
+    @CsvSource(value = {"(10,10)-(0,8)=2", "(10,10)=1", "(10,10)-(10,10)-(10,10)=3", "(10,10)-(10,10)-(10,10)-(10,10)=4"}, delimiter = '=')
+    void getTwoInput(String input, int size) {
         setSystemIn(input);
         InputView inputView = new InputView();
         String userInput = inputView.getInputPosition();
-        Position position = Position.parsePosition(userInput);
-        assertThat(position.getX()).isEqualTo(0);
-        assertThat(position.getY()).isEqualTo(8);
+        Positions position = Position.parsePosition(userInput);
+        assertThat(position.size()).isEqualTo(size);
+    }
+
+    private void setSystemIn(final String expectedInput) {
+        System.setIn(generateInputStream(expectedInput));
     }
 
     InputStream generateInputStream(String input) {
