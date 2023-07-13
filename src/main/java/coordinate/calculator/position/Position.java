@@ -4,13 +4,13 @@ import coordinate.calculator.Positions;
 
 public class Position {
 
-    private final X x;
-    private final Y y;
+    private final Point x;
+    private final Point y;
     private static final PositionParser parser = new PositionParser();
 
     public Position(final int x, final int y) {
-        this.x = new X(x);
-        this.y = new Y(y);
+        this.x = new Point(x);
+        this.y = new Point(y);
     }
 
     public static Positions parsePosition(final String userInput) {

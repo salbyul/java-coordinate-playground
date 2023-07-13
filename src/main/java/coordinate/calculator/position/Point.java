@@ -1,17 +1,17 @@
 package coordinate.calculator.position;
 
-public class X {
+public class Point {
 
-    private final int x;
+    private final int value;
 
-    public X(final int x) {
-        if (x < 0 || x > 24) {
+    public Point(final int value) {
+        if (value < 0 || value > 24) {
             throw new IllegalArgumentException("숫자는 24이하의 자연수만 가능합니다.");
         }
-        this.x = x;
+        this.value = value;
     }
 
     public int value() {
-        return this.x;
+        return this.value;
     }
 }
