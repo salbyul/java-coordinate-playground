@@ -74,7 +74,7 @@ public class InputViewTest {
 
     @ParameterizedTest
     @DisplayName("한개 이상의 좌표를 입력받을 시")
-    @CsvSource(value = {"(10,10)-(0,8)=2", "(10,10)=1", "(10,10)-(10,10)-(10,10)=3", "(10,10)-(10,10)-(10,10)-(10,10)=4"}, delimiter = '=')
+    @CsvSource(value = {"(10,10)-(0,8)=2", "(10,10)=1", "(10,8)-(0,3)-(1,7)=3", "(5,10)-(10,10)-(13,16)-(19,20)=4"}, delimiter = '=')
     void getTwoInput(String input, int size) {
         setSystemIn(input);
         InputView inputView = new InputView();

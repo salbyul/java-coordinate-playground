@@ -10,14 +10,12 @@ import java.util.regex.Pattern;
 
 public class PositionParser {
 
-    private static final String SEPARATED_REGEX = "(\\([^,]*,[^,)]*\\))";
-    private static final Matcher matcher = Pattern.compile(SEPARATED_REGEX).matcher("");
+    private static final String SEPARATED_REGEX = "(\\([^,]*,[^,]*\\))";
 
     protected PositionParser() {
     }
 
     public Positions parsePositions(final String userInput) {
-        initMatcher(userInput);
         Positions positions = new Positions();
 
         List<String> separatedInputs = separateInput(userInput);
@@ -30,20 +28,11 @@ public class PositionParser {
         return positions;
     }
 
-    private void initMatcher(final String userInput) {
-        matcher.reset(userInput);
-    }
-
-    private List<String> separateInput(String userInput) {
+    private List<String> separateInput(final String userInput) {
         List<String> result = new ArrayList<>();
+        Matcher matcher = Pattern.compile(SEPARATED_REGEX).matcher(userInput);
         while (matcher.find()) {
-            String group = matcher.group();
-            result.add(group);
-            if (userInput.length() < group.length() + 1) {
-                break;
-            }
-            userInput = userInput.substring(userInput.indexOf(group) + group.length());
-            matcher.reset(userInput);
+            result.add(matcher.group());
         }
         return result;
     }
