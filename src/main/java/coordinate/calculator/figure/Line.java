@@ -1,15 +1,8 @@
 package coordinate.calculator.figure;
 
-public class Line implements Figure {
+public class Line extends Figure {
 
-    private final double length;
-
-    public Line(final double length) {
-        this.length = length;
-    }
-
-    @Override
-    public double area() {
-        return this.length;
+    public Line(final double area) {
+        super(area);
     }
 }

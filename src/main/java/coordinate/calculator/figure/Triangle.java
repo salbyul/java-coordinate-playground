@@ -1,15 +1,8 @@
 package coordinate.calculator.figure;
 
-public class Triangle implements Figure{
-
-    private final double area;
+public class Triangle extends Figure {
 
     public Triangle(final double area) {
-        this.area = area;
-    }
-
-    @Override
-    public double area() {
-        return this.area;
+        super(area);
     }
 }

@@ -1,6 +1,15 @@
 package coordinate.calculator.figure;
 
-public interface Figure {
+public abstract class Figure {
 
-    double area();
+
+    private final double area;
+
+    protected Figure(final double area) {
+        this.area = area;
+    }
+
+    public double area() {
+        return this.area;
+    }
 }
