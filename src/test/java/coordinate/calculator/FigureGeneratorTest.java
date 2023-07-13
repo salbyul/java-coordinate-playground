@@ -51,4 +51,16 @@ public class FigureGeneratorTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("정사각형이나 직사각형만 계산이 가능합니다.");
     }
+
+    @Test
+    @DisplayName("세 쌍의 좌표를 입력할 경우 삼각형으로 가정하고 면적 계산")
+    void calculateTriangle() {
+        Positions positions = new Positions(Arrays.asList(new Position(14, 15), new Position(20, 8), new Position(10, 10)));
+        Positions positions2 = new Positions(Arrays.asList(new Position(0, 0), new Position(10, 0), new Position(0, 10)));
+        FigureGenerator generator = new FigureGenerator();
+        Figure result = generator.generate(positions);
+        Figure result2 = generator.generate(positions2);
+        assertThat(result.area()).isEqualTo(29, offset(0.000009));
+        assertThat(result2.area()).isEqualTo(50, offset(0.000009));
+    }
 }
