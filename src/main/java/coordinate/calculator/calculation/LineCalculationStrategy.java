@@ -1,15 +1,16 @@
-package coordinate.calculator;
+package coordinate.calculator.calculation;
 
+import coordinate.calculator.Positions;
 import coordinate.calculator.position.Position;
 
-public class Calculator {
+public class LineCalculationStrategy implements CalculationStrategy {
 
-    public Line calculate(final Positions positions) {
+    @Override
+    public Double calculate(final Positions positions) {
         validatePositionLength(positions);
         Position position = positions.getPosition(0);
         Position position2 = positions.getPosition(1);
-        double length = Math.sqrt(Math.pow(position.getX() - position2.getX(), 2) + Math.pow(position.getY() - position2.getY(), 2));
-        return new Line(length);
+        return Math.sqrt(Math.pow(position.getX() - position2.getX(), 2) + Math.pow(position.getY() - position2.getY(), 2));
     }
 
     private void validatePositionLength(final Positions positions) {

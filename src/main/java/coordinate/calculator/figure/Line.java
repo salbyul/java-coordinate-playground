@@ -1,6 +1,6 @@
-package coordinate.calculator;
+package coordinate.calculator.figure;
 
-public class Line {
+public class Line implements Figure {
 
     private final double length;
 
@@ -8,7 +8,8 @@ public class Line {
         this.length = length;
     }
 
-    public double length() {
+    @Override
+    public double area() {
         return this.length;
     }
 }
