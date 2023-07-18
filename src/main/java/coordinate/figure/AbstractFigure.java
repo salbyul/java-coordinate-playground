@@ -14,6 +14,11 @@ public abstract class AbstractFigure implements Figure {
     }
 
     @Override
+    public List<Point> getPoints() {
+        return this.points;
+    }
+
+    @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
