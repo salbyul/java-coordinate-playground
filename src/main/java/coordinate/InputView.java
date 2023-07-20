@@ -12,7 +12,7 @@ public class InputView {
 
     private static final String HYPHEN = "-";
     private static final String ERROR_POINT_MESSAGE = "좌표를 올바르게 입력해주세요.";
-    public static final String INPUT_MESSAGE = "좌표를 입력해주세요.";
+    private static final String INPUT_MESSAGE = "좌표를 입력해주세요.";
     private final Scanner scanner = new Scanner(System.in);
 
     public Figure generateFigure() {

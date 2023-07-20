@@ -7,6 +7,8 @@ import java.util.List;
 
 public class Triangle extends AbstractFigure {
 
+    private static final String TRIANGLE_NAME = "삼각형";
+
     public Triangle(final List<Point> points) {
         super(points);
     }
@@ -25,5 +27,10 @@ public class Triangle extends AbstractFigure {
         distances.add(getPoints().get(0).calculateDistance(getPoints().get(2)));
         distances.add(getPoints().get(1).calculateDistance(getPoints().get(2)));
         return distances;
+    }
+
+    @Override
+    public String getName() {
+        return TRIANGLE_NAME;
     }
 }

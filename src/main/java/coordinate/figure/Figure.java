@@ -11,4 +11,6 @@ public interface Figure {
     List<Point> getPoints();
 
     List<Double> getLineDistances();
+
+    String getName();
 }
